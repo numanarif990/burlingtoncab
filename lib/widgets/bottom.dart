@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:web_app/utils/colors.dart';
 import 'package:web_app/utils/constants.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -74,15 +75,24 @@ class MobileBottom extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const BottomIcon(color: Color(0xffFD07B0), icon: FontAwesome.instagram,),
+                const BottomIcon(
+                  url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
+
+                  color: Color(0xffFD07B0), icon: FontAwesome.instagram,),
                 SizedBox(
                   width: w! * 0.005,
                 ),
-                const BottomIcon(color: Color(0xff0866FF), icon: FontAwesome.facebook,),
+                const BottomIcon(
+                  url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
+
+                  color: Color(0xff0866FF), icon: FontAwesome.facebook,),
                 SizedBox(
                   width: w! * 0.005,
                 ),
-                const BottomIcon(color: Color(0xffFF0033), icon: FontAwesome.youtube_play,),
+                const BottomIcon(
+                  url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
+
+                  color: Color(0xffFF0033), icon: FontAwesome.youtube_play,),
               ],
             )
           ],
@@ -137,15 +147,21 @@ class DesktopBottom extends StatelessWidget {
             ),
              Row(
               children: [
-                const BottomIcon(color: Color(0xffFD07B0), icon: FontAwesome.instagram,),
+                const BottomIcon(
+                  url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
+                  color: Color(0xffFD07B0), icon: FontAwesome.instagram,),
                 SizedBox(
                   width: w! * 0.005,
                 ),
-                const BottomIcon(color: Color(0xff0866FF), icon: FontAwesome.facebook,),
+                const BottomIcon(
+                  url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
+                  color: Color(0xff0866FF), icon: FontAwesome.facebook,),
                 SizedBox(
                   width: w! * 0.005,
                 ),
-                const BottomIcon(color: Color(0xffFF0033), icon: FontAwesome.youtube_play,),
+                const BottomIcon(
+                  url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
+                  color: Color(0xffFF0033), icon: FontAwesome.youtube_play,),
               ],
             )
           ],
@@ -180,38 +196,54 @@ class navLogo extends StatelessWidget {
 class BottomIcon extends StatefulWidget {
   final Color color;
   final IconData icon;
-  const BottomIcon({super.key, required this.color, required this.icon});
+  final String url;
+  const BottomIcon({super.key,
+    required this.url,
+    required this.color, required this.icon});
 
   @override
   State<BottomIcon> createState() => _BottomIconState();
 }
 
 class _BottomIconState extends State<BottomIcon> {
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   bool onIt = false;
   @override
   Widget build(BuildContext context) {
-    return  MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (e){
-        setState(() {
-          onIt = true;
-        });
+    return  InkWell(
+      onTap: () {
+        _launchURL(widget.url);
+        onIt=!onIt;
       },
-      onExit: (e){
-        setState(() {
-          onIt = false;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        height: 30,
-        width: 30,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: onIt? widget.color: Colors.white,
-        ),
-        child: Center(
-          child: Icon(widget.icon, color: onIt? Colors.white: widget.color,size: 20,),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (e){
+          setState(() {
+            onIt = true;
+          });
+        },
+        onExit: (e){
+          setState(() {
+            onIt = false;
+          });
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          height: 30,
+          width: 30,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            color: onIt? widget.color: Colors.white,
+          ),
+          child: Center(
+            child: Icon(widget.icon, color: onIt? Colors.white: widget.color,size: 20,),
+          ),
         ),
       ),
     );

@@ -42,8 +42,8 @@ class _TabletContainer5State extends State<TabletContainer5> {
     return Container(
       width: w,
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.width * 1.1,
-        minHeight: MediaQuery.of(context).size.width * 1,
+        maxHeight: MediaQuery.of(context).size.width * 1.5,
+        minHeight: MediaQuery.of(context).size.width * 1.5,
       ),
       color: AppColors.backgroundColor,
       child: Column(
@@ -77,7 +77,7 @@ class _TabletContainer5State extends State<TabletContainer5> {
           const SizedBox(height: 15,),
           SizedBox(
             width: w!*0.7,  // Set appropriate width and height for iframe
-            height: w!*0.6, // Set appropriate height and width for iframe
+            height: w!*0.5, // Set appropriate height and width for iframe
             child: const MapLocation(),
           )
         ],
@@ -134,7 +134,7 @@ class _MobileContainer5State extends State<MobileContainer5> {
           const SizedBox(height: 15,),
           SizedBox(
             width: w!*0.7,  // Set appropriate width and height for iframe
-            height: w!*0.6, // Set appropriate height and width for iframe
+            height: w!*0.5, // Set appropriate height and width for iframe
             child: const MapLocation(),
           )
         ],

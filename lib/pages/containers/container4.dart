@@ -41,7 +41,7 @@ class MobileContainer4 extends StatelessWidget {
           children: [
             const titlebox(title: "About Us"),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Align(
                 alignment: Alignment.center, // Centering the Row
                 child: aboutdescription(

@@ -354,7 +354,7 @@ class DecoratedTextField1 extends StatelessWidget {
           fillColor: AppColors.cardColor,
           filled: true,
           hintStyle: TextStyle(
-            fontSize: 16,
+            fontSize: w!*0.03,
             color: Colors.grey.withOpacity(.8)
           ),
           border: OutlineInputBorder(

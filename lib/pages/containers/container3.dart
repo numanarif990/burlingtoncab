@@ -275,82 +275,94 @@ class _SpecificationState extends State<Specification> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (e) {
+    return GestureDetector(
+      onLongPressStart: (e){
         setState(() {
           isHover = true;
         });
       },
-      onExit: (e) {
+      onLongPressEnd: (e){
         setState(() {
           isHover = false;
         });
       },
-      cursor: SystemMouseCursors.click,
-      child: AnimatedContainer(
-        padding: EdgeInsets.all(8),
-        width: isHover ? widget.containerwidth*1.03 : widget.containerwidth,
-        height: isHover ? widget.containerheight*1.08 : widget.containerheight,
-        duration: const Duration(
-          milliseconds: 375,
-        ),
-        curve: Curves.easeOut,
-        decoration: BoxDecoration(
-          color: AppColors.cardColor,
-          borderRadius: isHover
-              ? BorderRadius.circular(20)
-              : BorderRadius.only(
-                  topLeft: Radius.circular(widget.topleft),
-                  topRight: Radius.circular(widget.topright),
-                  bottomLeft: Radius.circular(widget.bottomleft),
-                  bottomRight: Radius.circular(widget.bottomright),
-                ),
-          boxShadow: [
-            isHover
-                ? BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 5,
-                    blurRadius: 20,
-                    offset: const Offset(
-                        0, 15), // Larger vertical offset to simulate elevation
-                  )
-                : const BoxShadow()
-          ],
-        ),
-        child: Row(
-          children: [
-            Iconsetter(isHover: isHover, icon: widget.icon),
-            SizedBox(
-              width: w!/(w!/20),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AnimatedDefaultTextStyle(
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: isHover ?  widget.titlefontsize*1.1: widget.titlefontsize, // The animated font size
-                    color: AppColors.primaryColor,
+      child: MouseRegion(
+        onEnter: (e) {
+          setState(() {
+            isHover = true;
+          });
+        },
+        onExit: (e) {
+          setState(() {
+            isHover = false;
+          });
+        },
+        cursor: SystemMouseCursors.click,
+        child: AnimatedContainer(
+          padding: EdgeInsets.all(8),
+          width: isHover ? widget.containerwidth*1.03 : widget.containerwidth,
+          height: isHover ? widget.containerheight*1.08 : widget.containerheight,
+          duration: const Duration(
+            milliseconds: 375,
+          ),
+          curve: Curves.easeOut,
+          decoration: BoxDecoration(
+            color: AppColors.cardColor,
+            borderRadius: isHover
+                ? BorderRadius.circular(20)
+                : BorderRadius.only(
+                    topLeft: Radius.circular(widget.topleft),
+                    topRight: Radius.circular(widget.topright),
+                    bottomLeft: Radius.circular(widget.bottomleft),
+                    bottomRight: Radius.circular(widget.bottomright),
                   ),
-                  duration: const Duration(milliseconds: 300),
-                  // Duration of the animation
-                  child:  Text(widget.title),
-                ),
-                AnimatedDefaultTextStyle(
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: isHover ? widget.descriptionfontsize*1.1 : widget.descriptionfontsize, // The animated font size
-                    color: Colors.white,
+            boxShadow: [
+              isHover
+                  ? BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      spreadRadius: 5,
+                      blurRadius: 20,
+                      offset: const Offset(
+                          0, 15), // Larger vertical offset to simulate elevation
+                    )
+                  : const BoxShadow()
+            ],
+          ),
+          child: Row(
+            children: [
+              Iconsetter(isHover: isHover, icon: widget.icon),
+              SizedBox(
+                width: w!/(w!/20),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AnimatedDefaultTextStyle(
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: isHover ?  widget.titlefontsize*1.1: widget.titlefontsize, // The animated font size
+                      color: AppColors.primaryColor,
+                    ),
+                    duration: const Duration(milliseconds: 300),
+                    // Duration of the animation
+                    child:  Text(widget.title),
                   ),
-                  duration: const Duration(milliseconds: 300),
-                  // Duration of the animation
-                  child:  Text(
-                      widget.description),
-                ),
-              ],
-            )
-          ],
+                  AnimatedDefaultTextStyle(
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: isHover ? widget.descriptionfontsize*1.1 : widget.descriptionfontsize, // The animated font size
+                      color: Colors.white,
+                    ),
+                    duration: const Duration(milliseconds: 300),
+                    // Duration of the animation
+                    child:  Text(
+                        widget.description),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

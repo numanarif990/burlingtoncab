@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:web_app/utils/colors.dart';
 import 'package:web_app/utils/constants.dart';
@@ -111,16 +112,21 @@ class _Container1State extends State<Container1> {
                 color: Color(0xffFD07B0),
                 icon: FontAwesome.instagram,
                 title: "Instagram",
+                url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
               ),
               PopUpIcons(
                 color: Color(0xff0866FF),
                 icon: FontAwesome.facebook,
                 title: "Facebook",
+                url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
+
               ),
               PopUpIcons(
                 color: Color(0xffFF0033),
                 icon: FontAwesome.youtube_play,
                 title: "Youtube",
+                url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
+
               ),
             ],
           ),
@@ -315,13 +321,24 @@ class PopUpIcons extends StatefulWidget {
   final Color color;
   final IconData icon;
   final String title;
-  const PopUpIcons({super.key, required this.icon, required this.color, required this.title});
+  final String url;
+  const PopUpIcons({super.key,
+    required this.url,
+    required this.icon, required this.color, required this.title});
 
   @override
   State<PopUpIcons> createState() => _PopUpIconsState();
 }
 
 class _PopUpIconsState extends State<PopUpIcons> {
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   bool onIt = false;
   @override
   Widget build(BuildContext context) {
@@ -372,30 +389,35 @@ class _PopUpIconsState extends State<PopUpIcons> {
                 ]),
               ),
             ),
-            MouseRegion(
-              onEnter: (e){
-                setState(() {
-                  onIt = true;
-                });
+            InkWell(
+              onTap: (){
+              _launchURL(widget.url);
               },
-              onExit: (e){
-                setState(() {
-                  onIt = false;
-                });
-              },
-              cursor: SystemMouseCursors.click,
-              child: Center(
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: onIt? widget.color: Colors.white,
-                
-                  ),
-                  child: Center(
-                    child: Icon(widget.icon,color: onIt? Colors.white: widget.color,),
+              child: MouseRegion(
+                onEnter: (e){
+                  setState(() {
+                    onIt = true;
+                  });
+                },
+                onExit: (e){
+                  setState(() {
+                    onIt = false;
+                  });
+                },
+                cursor: SystemMouseCursors.click,
+                child: Center(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: onIt? widget.color: Colors.white,
+
+                    ),
+                    child: Center(
+                      child: Icon(widget.icon,color: onIt? Colors.white: widget.color,),
+                    ),
                   ),
                 ),
               ),
