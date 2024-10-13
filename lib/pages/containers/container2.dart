@@ -33,7 +33,7 @@ class MobileContainer2 extends StatelessWidget {
     return Container(
       width: w,
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.width * 3.7,
+        maxHeight: MediaQuery.of(context).size.width * 4.2,
         minHeight: MediaQuery.of(context).size.width *3.7,
       ),
       color: AppColors.backgroundColor,

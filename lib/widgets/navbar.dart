@@ -128,9 +128,9 @@ class _TabletNavbarState extends State<TabletNavbar> {
               InkWell(
                 onTap: (){
                   drawerProvider.toggleDrawer();
-                  toggleMenuIcon();
+                  // toggleMenuIcon();
                 },
-                child: Icon(iconChanger ? Icons.close : Icons.menu,
+                child: Icon(Icons.menu,
                     color: widget.MenuIconColor, size: 35),
               ),
               navLogo(screenWidth / 2.1, screenWidth / 15),
@@ -196,9 +196,9 @@ class _mobileNavBarState extends State<mobileNavBar> {
               InkWell(
                 onTap: (){
                   drawerProvider.toggleDrawer();
-                  toggleMenuIcon();
+                  // toggleMenuIcon();
                 },
-                child: Icon(iconChanger ? Icons.close : Icons.menu,
+                child: Icon( Icons.menu,
                     color: widget.MenuIconColor, size: 35),
               ),
               navLogo(screenWidth / 2.1, screenWidth / 15),
@@ -241,55 +241,45 @@ class NavButton extends StatefulWidget {
 }
 
 class _NavButtonState extends State<NavButton> {
+
   bool isHovered = false;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-     onLongPressStart: (e){
-       setState(() {
-         isHovered = true;
-       });
-     },
-      onLongPressEnd: (e){
-       setState(() {
-         isHovered = false;
-       });
-      },
-      child: InkWell(
-        onTap: widget.onTap,  // Trigger onTap when clicked
-        child: MouseRegion(
-          onEnter: (e){
-            setState(() {
-              isHovered = true;
-            });
-          },
-          onExit: (e){
-            setState(() {
-              isHovered = false;
-            });
-          },
-          cursor: SystemMouseCursors.click,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Text(
-                  widget.text,
-                  style: TextStyle(
-                    color: isHovered? AppColors.borderColor: widget.color,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
+    final drawerProvider = Provider.of<DrawerProvider>(context);
+    return InkWell(
+      onTap: widget.onTap,  // Trigger onTap when clicked
+      child: MouseRegion(
+        onEnter: (e){
+          setState(() {
+            isHovered = true;
+          });
+        },
+        onExit: (e){
+          setState(() {
+            isHovered = false;
+          });
+        },
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Text(
+                widget.text,
+                style: TextStyle(
+                  color: isHovered? AppColors.borderColor: widget.color,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
                 ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeOut,
-                  height: 3,
-                  width: isHovered? widget.width : 0,
-                  color: AppColors.primaryColor,
-                ),
-              ],
-            ),
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+                height: 3,
+                width: isHovered? widget.width : 0,
+                color: AppColors.primaryColor,
+              ),
+            ],
           ),
         ),
       ),

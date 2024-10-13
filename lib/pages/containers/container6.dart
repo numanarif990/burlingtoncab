@@ -98,7 +98,7 @@ class MessageContainerMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 10, bottom: 20),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       constraints: BoxConstraints(
         maxWidth: maxwidth, // Adjusts width based on screen size
       ),
@@ -345,6 +345,7 @@ class DecoratedTextField1 extends StatelessWidget {
 
         maxLines: maxlines,
       cursorColor: Colors.white,
+        cursorHeight: w!*0.028,
         style: const TextStyle(
           fontSize: 14,
           color: Colors.white
@@ -354,7 +355,7 @@ class DecoratedTextField1 extends StatelessWidget {
           fillColor: AppColors.cardColor,
           filled: true,
           hintStyle: TextStyle(
-            fontSize: w!*0.03,
+            fontSize: w!*0.028,
             color: Colors.grey.withOpacity(.8)
           ),
           border: OutlineInputBorder(

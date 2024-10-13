@@ -134,6 +134,7 @@ class _HomeState extends State<Home> {
               top: h!*0.1,
                 left: w!*0.1,
                 child: NavigationDrawer(onNavItemTap: (int index) {
+                  drawerprovider.toggleDrawer();
                   navigationProvider.navigateToContainer(index);
                   scrollToContainer(containerKeys[index]);
                 },))
