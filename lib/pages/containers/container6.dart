@@ -108,11 +108,11 @@ class MessageContainerMobile extends StatelessWidget {
         children: [
           Expanded(
               flex: flex,
-              child: const DecoratedTextField1(label: "Enter your name", maxlines: 1)),
+              child: const DecoratedTextField1Mobile(label: "Enter your name", maxlines: 1)),
           const SizedBox(height: 10,),
           Expanded(
               flex: flex,
-              child: const DecoratedTextField1(label: "Enter your email", maxlines: 1)),
+              child: const DecoratedTextField1Mobile(label: "Enter your email", maxlines: 1)),
           const SizedBox(height: 10,),
 
           const DecoratedTextField(label: "Enter your message", maxlines: 10),
@@ -335,6 +335,68 @@ class DecoratedTextField1 extends StatelessWidget {
   final String label;
   final int maxlines;
   const DecoratedTextField1({super.key, required this.label, required this.maxlines});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+
+      // margin: const EdgeInsets.symmetric(horizontal: 30),
+      child: TextField(
+
+        maxLines: maxlines,
+        cursorColor: Colors.white,
+        cursorHeight: 16,
+        style: const TextStyle(
+            fontSize: 16,
+            color: Colors.white
+        ),
+        decoration: InputDecoration(
+          hintText: label,
+          fillColor: AppColors.cardColor,
+          filled: true,
+          hintStyle: TextStyle(
+              fontSize: 16,
+              color: Colors.grey.withOpacity(.8)
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.grey, // Custom border color
+              width: 1,
+            ),
+          ),
+
+          floatingLabelStyle: const TextStyle(
+              fontSize: 18,
+              color: Colors.white
+          ),
+          enabled: true,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(
+              color: Colors.grey, // Custom border color when enabled
+              width: 1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(
+              color: Colors.white, // Custom border color when focused
+              width: 2,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class DecoratedTextField1Mobile extends StatelessWidget {
+  final String label;
+  final int maxlines;
+  const DecoratedTextField1Mobile({super.key, required this.label, required this.maxlines});
 
   @override
   Widget build(BuildContext context) {
