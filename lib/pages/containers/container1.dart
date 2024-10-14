@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
@@ -24,17 +24,29 @@ class Container1 extends StatefulWidget {
 
 class _Container1State extends State<Container1> {
   late VideoPlayerController _videoPlayerController;
+  ChewieController? _chewieController;
+  bool _isVideoInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    // Initialize video from local assets (Make sure to use a network URL or file URL for production)
-    _videoPlayerController =
-        VideoPlayerController.asset('assets/videos/background2.mp4');
-    _videoPlayerController.setLooping(true);
-    _videoPlayerController.setVolume(0.0);
+    // Initialize the video controller
+    _videoPlayerController = VideoPlayerController.asset('assets/videos/background2.mp4');
+
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController,
+      looping: true, // Looping video infinitely
+      autoPlay: true, // Auto-play the video
+      showControls: false, // Hide video controls for a background video
+      autoInitialize: true,
+    );
+
+    _videoPlayerController.setVolume(0.0); // Mute the video
+
+    // Initialize video and then update state
     _videoPlayerController.initialize().then((_) {
       setState(() {
+        _isVideoInitialized = true; // Video is ready
         _videoPlayerController.play();
       });
     });
@@ -43,6 +55,7 @@ class _Container1State extends State<Container1> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
+    _chewieController?.dispose();
     super.dispose();
   }
 
@@ -61,12 +74,23 @@ class _Container1State extends State<Container1> {
         SizedBox(
           width: w,
           height: h,
+          child: Image.asset(
+            'assets/images/placeholder.jpg',  // Path to your image
+            fit: BoxFit.cover,                // Cover the whole background
+          ),
+        ),
+
+        // Display the video once it is initialized, otherwise the image remains
+        if (_isVideoInitialized)
+        SizedBox(
+          width: w,
+          height: h,
           child: FittedBox(
             fit: BoxFit.cover,
             child: SizedBox(
               width: _videoPlayerController.value.size.width,
               height: _videoPlayerController.value.size.height,
-              child: VideoPlayer(_videoPlayerController),
+              child: Chewie(controller: _chewieController!),
             ),
           ),
         ),
@@ -144,12 +168,23 @@ class _Container1State extends State<Container1> {
         SizedBox(
           width: w,
           height: h,
+          child: Image.asset(
+            'assets/images/placeholder.jpg',  // Path to your image
+            fit: BoxFit.cover,                // Cover the whole background
+          ),
+        ),
+
+        // Display the video once it is initialized, otherwise the image remains
+        if (_isVideoInitialized)
+        SizedBox(
+          width: w,
+          height: h,
           child: FittedBox(
             fit: BoxFit.cover,
             child: SizedBox(
               width: _videoPlayerController.value.size.width,
               height: _videoPlayerController.value.size.height,
-              child: VideoPlayer(_videoPlayerController),
+              child: Chewie(controller: _chewieController!),
             ),
           ),
         ),
@@ -275,46 +310,7 @@ class AnimatedText2 extends StatelessWidget {
     );
   }
 }
-class CarImage extends StatefulWidget {
-  final double width, height;
-  const CarImage({super.key, required this.height, required this.width});
 
-  @override
-  State<CarImage> createState() => _CarImageState();
-}
-
-class _CarImageState extends State<CarImage> {
-  bool isHover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (e) {
-        setState(() {
-          isHover = true;
-        });
-      },
-      onExit: (e) {
-        setState(() {
-          isHover = false;
-        });
-      },
-      child: AnimatedContainer(
-        curve: Curves.easeOut,
-        duration: const Duration(milliseconds: 100),
-        width: isHover ? widget.width * 1.025 : widget.width,
-        height: isHover ? widget.height * 1.025 : widget.height,
-        decoration: BoxDecoration(
-          border: Border.all(width: 3),
-          image: const DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/images/car1.jpg'))
-        ),
-
-      ),
-    );
-  }
-}
 
 
 class PopUpIcons extends StatefulWidget {
