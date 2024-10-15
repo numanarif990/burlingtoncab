@@ -45,6 +45,7 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   visibility_detector: ^0.4.0+2
   chewie: ^1.8.5
+  http: ^1.2.2
 
 
 dev_dependencies:

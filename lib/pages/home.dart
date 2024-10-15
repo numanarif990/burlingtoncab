@@ -9,7 +9,6 @@ import 'package:web_app/pages/containers/container6.dart';
 import 'package:web_app/utils/colors.dart';
 import 'package:web_app/widgets/bottom.dart';
 import 'package:web_app/widgets/navbar.dart';
-
 import '../utils/constants.dart';
 import '../utils/drawerprovider.dart';
 import '../utils/navigationprovider.dart';
@@ -85,7 +84,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Stack(
         children: [
-          SingleChildScrollView(
+         SingleChildScrollView(
             controller: _scrollController,
             child: Column(
               children: [
