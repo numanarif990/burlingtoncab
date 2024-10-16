@@ -37,15 +37,17 @@ dependencies:
   cupertino_icons: ^1.0.8
   responsive_builder: ^0.7.1
   entry: ^1.0.0
-  video_player: ^2.9.2
+
   animated_text_kit: ^4.2.2
   provider: ^6.1.2
   url_launcher: ^6.3.1
   flutter_vector_icons: ^2.0.0
   font_awesome_flutter: ^10.7.0
-  visibility_detector: ^0.4.0+2
-  chewie: ^1.8.5
-  http: ^1.2.2
+  carousel_slider: ^5.0.0
+  flutter_cache_manager: ^3.4.1
+  cached_network_image: ^3.4.1
+
+
 
 
 dev_dependencies:
@@ -74,7 +76,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/videos/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

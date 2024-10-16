@@ -63,7 +63,6 @@ class _TabletContainer5State extends State<TabletContainer5> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ContactHeading(title: "EMAIL"),
-              Mail(mail: "chand@burlingtoncity.ca"),
               Mail(mail: "dispatch@burlingtoncitycab.ca"),
               Underline()
             ],
@@ -120,7 +119,6 @@ class _MobileContainer5State extends State<MobileContainer5> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ContactHeading(title: "EMAIL"),
-              Mail(mail: "chand@burlingtoncity.ca"),
               Mail(mail: "dispatch@burlingtoncitycab.ca"),
               Underline()
             ],
@@ -178,7 +176,6 @@ class _DesktopContainer5State extends State<DesktopContainer5> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ContactHeading(title: "EMAIL"),
-              Mail(mail: "chand@burlingtoncity.ca"),
               Mail(mail: "dispatch@burlingtoncitycab.ca"),
               Underline()
             ],

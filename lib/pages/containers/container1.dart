@@ -1,66 +1,51 @@
+import 'dart:async';
 import 'dart:math';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:video_player/video_player.dart';
 import 'package:web_app/utils/colors.dart';
 import 'package:web_app/utils/constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../utils/drawerprovider.dart';
-import '../../utils/navigationprovider.dart';
-import '../../widgets/navbar.dart';
 
 class Container1 extends StatefulWidget {
-
-  const Container1({super.key, });
+  const Container1({super.key});
 
   @override
   State<Container1> createState() => _Container1State();
 }
 
 class _Container1State extends State<Container1> {
-  late VideoPlayerController _videoPlayerController;
-  ChewieController? _chewieController;
-  bool _isVideoInitialized = false;
+  final List<String> _backgroundImages = [
+    'assets/images/placeholder.jpg',
+    'assets/images/placeholder1.jpg',
+    'assets/images/placeholder2.jpg',
+    'assets/images/placeholder3.jpg',
+    'assets/images/placeholder4.jpg',
+  ];
+   bool loaded = false;
 
+  late final CarouselSliderController _controller;
   @override
   void initState() {
     super.initState();
-    // Initialize the video controller
-    _videoPlayerController = VideoPlayerController.asset('assets/videos/background2.mp4');
-
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
-      looping: true, // Looping video infinitely
-      autoPlay: true, // Auto-play the video
-      showControls: false, // Hide video controls for a background video
-      autoInitialize: true,
-    );
-
-    _videoPlayerController.setVolume(0.0); // Mute the video
-
-    // Initialize video and then update state
-    _videoPlayerController.initialize().then((_) {
-      setState(() {
-        _isVideoInitialized = true; // Video is ready
-        _videoPlayerController.play();
-      });
-    });
+    _controller = CarouselSliderController();
+    _preloadImages();
   }
-
-  @override
-  void dispose() {
-    _videoPlayerController.dispose();
-    _chewieController?.dispose();
-    super.dispose();
+  void _preloadImages() async {
+    for (String imagePath in _backgroundImages) {
+        await DefaultCacheManager().getSingleFile(imagePath);
+      }
   }
 
   @override
   Widget build(BuildContext context) {
+
     return ScreenTypeLayout(
       desktop: deskTopContainer1(),
       mobile: mobileContainer1(),
@@ -69,30 +54,36 @@ class _Container1State extends State<Container1> {
 
   //--------------Desktop--------------
   Widget deskTopContainer1() {
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Stack(
       children: [
-        SizedBox(
-          width: w,
-          height: h,
-          child: Image.asset(
-            'assets/images/placeholder.jpg',  // Path to your image
-            fit: BoxFit.cover,                // Cover the whole background
+        CarouselSlider(
+          items: _backgroundImages.map((imagePath) {
+            return Container(
+              width: screenWidth,
+              height: screenHeight,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          }).toList(),
+          options: CarouselOptions(
+            height: screenHeight,
+            viewportFraction: 1.0,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 3),
+            autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+            autoPlayCurve: Curves.easeInOut,
+            scrollDirection: Axis.horizontal,
+            enableInfiniteScroll: true,
           ),
-        ),
-
-        // Display the video once it is initialized, otherwise the image remains
-        if (_isVideoInitialized)
-        SizedBox(
-          width: w,
-          height: h,
-          child: FittedBox(
-            fit: BoxFit.cover,
-            child: SizedBox(
-              width: _videoPlayerController.value.size.width,
-              height: _videoPlayerController.value.size.height,
-              child: Chewie(controller: _chewieController!),
-            ),
-          ),
+          carouselController: _controller,
         ),
         Positioned.fill(
           child: Container(
@@ -100,7 +91,7 @@ class _Container1State extends State<Container1> {
           ),
         ),
         Positioned(
-          top: w! / 6,
+          top: screenWidth / 6,
           left: 50,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -111,18 +102,18 @@ class _Container1State extends State<Container1> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MainText(
-                    fontsize: w! * 0.07,
+                    fontsize: screenWidth * 0.07,
                     text: "Get there quicker",
                   ),
                   Row(
                     children: [
-                      MainText(fontsize: w! * 0.07, text: "Book with "),
-                      AnimatedText(fontsize: w! * 0.07, width: w! / 2),
+                      MainText(fontsize: screenWidth * 0.07, text: "Book with "),
+                      AnimatedText(fontsize: screenWidth * 0.07, width: screenWidth / 2),
                     ],
                   )
                 ],
               ),
-              AnimatedText2(fontsize: w! / 60),
+              AnimatedText2(fontsize: screenWidth / 60),
             ],
           ),
         ),
@@ -143,55 +134,50 @@ class _Container1State extends State<Container1> {
                 icon: FontAwesome.facebook,
                 title: "Facebook",
                 url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
-
               ),
               PopUpIcons(
                 color: Color(0xffFF0033),
                 icon: FontAwesome.youtube_play,
                 title: "Youtube",
                 url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
-
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
-
-
   //---------------MOBILE----------------
   Widget mobileContainer1() {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
     return Stack(
       children: [
-        SizedBox(
-          width: w,
-          height: h,
-          child: Image.asset(
-            'assets/images/placeholder.jpg',  // Path to your image
-            fit: BoxFit.cover,                // Cover the whole background
+        CarouselSlider(
+          items: _backgroundImages.map((imagePath) {
+            return Container(
+              width: screenWidth,
+              height: screenHeight,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          }).toList(),
+          options: CarouselOptions(
+            height: screenHeight,
+            viewportFraction: 1.0,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 3),
+            autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+            autoPlayCurve: Curves.easeInOut,
+            scrollDirection: Axis.horizontal,
+            enableInfiniteScroll: true,
           ),
-        ),
-
-        // Display the video once it is initialized, otherwise the image remains
-        if (_isVideoInitialized)
-        SizedBox(
-          width: w,
-          height: h,
-          child: FittedBox(
-            fit: BoxFit.cover,
-            child: SizedBox(
-              width: _videoPlayerController.value.size.width,
-              height: _videoPlayerController.value.size.height,
-              child: Chewie(controller: _chewieController!),
-            ),
-          ),
-        ),
-        Positioned.fill(
-          child: Container(
-            color: Colors.black.withOpacity(0.6), // Adjust opacity as needed
-          ),
+          carouselController: _controller,
         ),
         Positioned(
           top: h! *0.69,

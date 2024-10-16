@@ -4,6 +4,9 @@ import 'package:web_app/pages/home.dart';
 import 'package:web_app/utils/colors.dart';
 import 'package:web_app/utils/drawerprovider.dart';
 import 'package:web_app/utils/navigationprovider.dart';
+import 'dart:ui_web' as ui;
+
+
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_)=> DrawerProvider()),
-      ChangeNotifierProvider(create: (_)=> NavigationProvider())
+      ChangeNotifierProvider(create: (_)=> NavigationProvider()),
     ],
     child: Builder(builder: (BuildContext context){
       return
@@ -28,7 +31,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
             fontFamily: 'HindSiliguri',
-            scaffoldBackgroundColor: Colors.white,
+            scaffoldBackgroundColor: Colors.grey,
             brightness: Brightness.light,
             primaryColor: AppColors.primaryColor,
 

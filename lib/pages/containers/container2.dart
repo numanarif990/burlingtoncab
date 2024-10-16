@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:web_app/pages/containers/container5.dart';
 import 'package:web_app/utils/colors.dart';
 
 import '../../utils/constants.dart';
+
 
 class Container2 extends StatefulWidget {
   final VoidCallback onBookNowPressed;
@@ -14,6 +17,7 @@ class Container2 extends StatefulWidget {
 }
 
 class _Container2State extends State<Container2> {
+
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(

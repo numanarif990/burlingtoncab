@@ -1,27 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Burlington City Cab - Your trusted choice for fast, reliable, and safe taxi services in Burlington. Whether you need a quick ride across town or transportation to the airport, we’ve got you covered! Book online with ease or call us anytime for prompt, hassle-free service. Experience comfort, safety, and professionalism with every ride.">
 
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="web_app">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
@@ -30,74 +18,103 @@
   <link rel="icon" type="image/png" href="favicon.png"/>
   <title>🚖 Burlington City Cab | Reliable Taxi Service in Burlington 🚖</title>
   <meta name="keywords" content="Burlington City Cab, Burlington taxi service, quick taxi Burlington, reliable transportation Burlington, cab service Burlington, book taxi Burlington, airport taxi Burlington, city cab Burlington, Burlington cabs, online taxi booking Burlington, safe taxi Burlington, Burlington city transportation, Burlington taxi booking, local cab service Burlington, Burlington taxi app">
+
+  <!-- Service Worker Version -->
+  <script>
+    const serviceWorkerVersion = '1.0.0'; // Service Worker versioning
+  </script>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XP66CLEJVD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-XP66CLEJVD');
   </script>
+
   <meta name="author" content="Burlington City Cab">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
+
   <style>
-    /* Loading indicator container */
-    #loading_indicator {
+    .loader-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       z-index: 9999;
     }
 
-    /* The loading image itself */
-    .indicator {
-      width: 5vw; /* 10% of the viewport width */
-      height: auto; /* Maintain aspect ratio */
-      animation: rotate 2s linear infinite;
+    .loader {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      width: 5vw;
+      height: 5vw;
+      animation: spin 1s linear infinite;
     }
 
-    /* Rotate animation */
-    @keyframes rotate {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    /* Ensure responsiveness for smaller screens */
     @media (max-width: 768px) {
-      .indicator {
-        width: 15vw; /* Make it slightly bigger on smaller screens */
+      .loader {
+        width: 7vw;
+        height: 7vw;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .loader {
+        width: 10vw;
+        height: 10vw;
       }
     }
   </style>
 
-
 </head>
 <body>
-<div id="loading_indicator" class="container">
-  <img class="indicator" src="assets/images/loading.png">
+<div class="loader-container">
+  <div class="loader"></div>
 </div>
-  <script src="flutter_bootstrap.js" async></script>
+
+<script src="flutter_bootstrap.js" async></script>
 <script>
-  window.onload = function() {
-    setTimeout(function() {
-      var loadingIndicator = document.getElementById('loading_indicator');
-      if (loadingIndicator) {
-        loadingIndicator.remove(); // Remove the loading indicator after a delay
+  window.addEventListener("load", function() {
+    let loadingContainer = document.querySelector(".loader-container");
+
+    function removeLoader() {
+      if (loadingContainer) {
+        loadingContainer.remove();
       }
-    }, 2000); // Adjust the timeout value as needed
-  };
+    }
+
+    // Load Flutter Script
+    function loadFlutterScript() {
+      return new Promise(function(resolve, reject) {
+        const script = document.createElement('script');
+        script.src = '/build/web/main.dart.js'; // Path to your Flutter script
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    }
+
+    // Once the Flutter script loads, remove the loader
+    loadFlutterScript()
+      .then(function() {
+        removeLoader(); // Remove loader after Flutter script loads successfully
+      })
+      .catch(function(err) {
+        console.error("Failed to load Flutter app script:", err);
+        removeLoader(); // Remove loader even if an error occurs
+      });
+ });
+
 </script>
 
- </body>
+</body>
 </html>
