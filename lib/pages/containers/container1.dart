@@ -9,7 +9,6 @@ import 'package:web_app/utils/colors.dart';
 import 'package:web_app/utils/constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 
 class Container1 extends StatefulWidget {
@@ -34,13 +33,21 @@ class _Container1State extends State<Container1> {
   void initState() {
     super.initState();
     _controller = CarouselSliderController();
+
+  }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
     _preloadImages();
   }
-  void _preloadImages() async {
+  void _preloadImages() {
     for (String imagePath in _backgroundImages) {
-        await DefaultCacheManager().getSingleFile(imagePath);
-      }
+      precacheImage(AssetImage(imagePath), context);
+    }
   }
+
+
 
   @override
   Widget build(BuildContext context) {

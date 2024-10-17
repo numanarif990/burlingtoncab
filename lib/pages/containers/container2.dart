@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:web_app/pages/containers/container5.dart';
+
 import 'package:web_app/utils/colors.dart';
 
 import '../../utils/constants.dart';
@@ -17,6 +15,24 @@ class Container2 extends StatefulWidget {
 }
 
 class _Container2State extends State<Container2> {
+  final List<String> _cardImages = [
+    'assets/images/car2.jpg',
+    'assets/images/van.jpg',
+    'assets/images/wheelcar.jpg',
+  ];
+  
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    _preloadImages();
+  }
+  void _preloadImages() {
+    for (String imagePath in _cardImages) {
+      precacheImage(AssetImage(imagePath), context);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +45,7 @@ class _Container2State extends State<Container2> {
 }
 
 class MobileContainer2 extends StatelessWidget {
+
   final VoidCallback onBookNowPressed;
   const MobileContainer2({super.key, required this.onBookNowPressed});
 
@@ -80,6 +97,7 @@ class MobileContainer2 extends StatelessWidget {
 }
 
 class TabletContainer2 extends StatelessWidget {
+
   final VoidCallback onBookNowPressed;
   const TabletContainer2({super.key,
     required this.onBookNowPressed});
