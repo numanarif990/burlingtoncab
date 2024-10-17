@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base href="/">
+  <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Burlington City Cab - Your trusted choice for fast, reliable, and safe taxi services in Burlington. Whether you need a quick ride across town or transportation to the airport, we’ve got you covered! Book online with ease or call us anytime for prompt, hassle-free service. Experience comfort, safety, and professionalism with every ride.">
-
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
 
@@ -19,10 +18,6 @@
   <title>🚖 Burlington City Cab | Reliable Taxi Service in Burlington 🚖</title>
   <meta name="keywords" content="Burlington City Cab, Burlington taxi service, quick taxi Burlington, reliable transportation Burlington, cab service Burlington, book taxi Burlington, airport taxi Burlington, city cab Burlington, Burlington cabs, online taxi booking Burlington, safe taxi Burlington, Burlington city transportation, Burlington taxi booking, local cab service Burlington, Burlington taxi app">
 
-  <!-- Service Worker Version -->
-  <script>
-    const serviceWorkerVersion = '1.0.0'; // Service Worker versioning
-  </script>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XP66CLEJVD"></script>
@@ -38,7 +33,7 @@
   <link rel="manifest" href="manifest.json">
 
   <style>
-    .loader-container {
+    #loader-container {
       position: fixed;
       top: 50%;
       left: 50%;
@@ -77,43 +72,18 @@
 
 </head>
 <body>
-<div class="loader-container">
+<div id="loader-container">
   <div class="loader"></div>
 </div>
 
 <script src="flutter_bootstrap.js" async></script>
 <script>
-  window.addEventListener("load", function() {
-    let loadingContainer = document.querySelector(".loader-container");
-
-    function removeLoader() {
-      if (loadingContainer) {
-        loadingContainer.remove();
-      }
+  window.onload = function() {
+    var loadingIndicator = document.getElementById('loader-container');
+    if (loadingIndicator) {
+      loadingIndicator.remove(); // Remove the loading indicator when the page finishes loading
     }
-
-    // Load Flutter Script
-    function loadFlutterScript() {
-      return new Promise(function(resolve, reject) {
-        const script = document.createElement('script');
-        script.src = '/build/web/main.dart.js'; // Path to your Flutter script
-        script.onload = resolve;
-        script.onerror = reject;
-        document.body.appendChild(script);
-      });
-    }
-
-    // Once the Flutter script loads, remove the loader
-    loadFlutterScript()
-      .then(function() {
-        removeLoader(); // Remove loader after Flutter script loads successfully
-      })
-      .catch(function(err) {
-        console.error("Failed to load Flutter app script:", err);
-        removeLoader(); // Remove loader even if an error occurs
-      });
- });
-
+  };
 </script>
 
 </body>

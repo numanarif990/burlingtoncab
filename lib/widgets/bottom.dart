@@ -1,12 +1,10 @@
-import 'dart:math';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web_app/utils/colors.dart';
 import 'package:web_app/utils/constants.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-
 class Bottom extends StatefulWidget {
   const Bottom({super.key});
 
@@ -78,21 +76,21 @@ class MobileBottom extends StatelessWidget {
                 const BottomIcon(
                   url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
 
-                  color: Color(0xffFD07B0), icon: FontAwesome.instagram,),
+                  color: Color(0xffFD07B0), icon: FontAwesomeIcons.instagram,),
                 SizedBox(
                   width: w! * 0.005,
                 ),
                 const BottomIcon(
                   url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
 
-                  color: Color(0xff0866FF), icon: FontAwesome.facebook,),
+                  color: Color(0xff0866FF), icon: FontAwesomeIcons.facebook,),
                 SizedBox(
                   width: w! * 0.005,
                 ),
                 const BottomIcon(
                   url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
 
-                  color: Color(0xffFF0033), icon: FontAwesome.youtube_play,),
+                  color: Color(0xffFF0033), icon: FontAwesomeIcons.youtube,),
               ],
             )
           ],
@@ -149,19 +147,19 @@ class DesktopBottom extends StatelessWidget {
               children: [
                 const BottomIcon(
                   url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
-                  color: Color(0xffFD07B0), icon: FontAwesome.instagram,),
+                  color: Color(0xffFD07B0), icon: FontAwesomeIcons.instagram,),
                 SizedBox(
                   width: w! * 0.005,
                 ),
                 const BottomIcon(
                   url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
-                  color: Color(0xff0866FF), icon: FontAwesome.facebook,),
+                  color: Color(0xff0866FF), icon: FontAwesomeIcons.facebook,),
                 SizedBox(
                   width: w! * 0.005,
                 ),
                 const BottomIcon(
                   url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
-                  color: Color(0xffFF0033), icon: FontAwesome.youtube_play,),
+                  color: Color(0xffFF0033), icon: FontAwesomeIcons.youtube,),
               ],
             )
           ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:web_app/pages/containers/container1.dart';
 import 'package:web_app/pages/containers/container2.dart';
 
 import '../../utils/colors.dart';

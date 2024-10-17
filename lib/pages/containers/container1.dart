@@ -1,8 +1,8 @@
-import 'dart:async';
+
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web_app/utils/colors.dart';
@@ -10,7 +10,6 @@ import 'package:web_app/utils/constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 
 class Container1 extends StatefulWidget {
@@ -22,7 +21,7 @@ class Container1 extends StatefulWidget {
 
 class _Container1State extends State<Container1> {
   final List<String> _backgroundImages = [
-    'assets/images/placeholder.jpg',
+    'assets/images/placeholderone.jpg',
     'assets/images/placeholder1.jpg',
     'assets/images/placeholder2.jpg',
     'assets/images/placeholder3.jpg',
@@ -125,19 +124,19 @@ class _Container1State extends State<Container1> {
             children: [
               PopUpIcons(
                 color: Color(0xffFD07B0),
-                icon: FontAwesome.instagram,
+                icon: FontAwesomeIcons.instagram,
                 title: "Instagram",
                 url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
               ),
               PopUpIcons(
                 color: Color(0xff0866FF),
-                icon: FontAwesome.facebook,
+                icon: FontAwesomeIcons.facebook,
                 title: "Facebook",
                 url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
               ),
               PopUpIcons(
                 color: Color(0xffFF0033),
-                icon: FontAwesome.youtube_play,
+                icon: FontAwesomeIcons.youtube,
                 title: "Youtube",
                 url: 'https://www.facebook.com/p/Burlington-cab-100083389290012/?_rdr',
               ),
